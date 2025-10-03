@@ -1,15 +1,12 @@
---1) son 20 il ərzində yeni işə alınan və maaşı ortalama maaşdan yüksək olan işçiləri tapın.
 select * from employees
 where hire_date>=add_months(sysdate,-12*20)
 and salary>(select avg(salary) from employees);
 
---2)Əməkdaşların əmək haqqlarının 20 % -nin üzərinə 500 əlavə etdikdə departamentlər üzrə orta əmək haqqıya bərabər olan(yuvarlaqlaşdırma tam hissəyə görə olmalıdır) məlumatları təyin edən sorğunu yazın.
+
 select e.* from employees e
 where e.salary*1.2+500 in (select round(avg(salary)) from employees
                            group by department_id);
 
-
---3). Aşağıda yazılan sorğunun nəticəsi ilə eyni nəticəni əldə edən alternativ sorğunu yazın.
       select emp.first_name,
              emp.last_name,
              his.end_date
@@ -26,7 +23,6 @@ where e.salary*1.2+500 in (select round(avg(salary)) from employees
     and emp.job_id=his.job_id;
     
 
---4)minimal emek haqqi meblegi 2500-5000 arasinda olan olkeler arasindan en  cox emek haqqi miqyasi teyin eden ilk iki olkenin adini ve umumi emek haqqi summasini ekrana cixartmaq (employees,departments,locations,countries cədvəllərindən istifadə edəcəksiniz*Join*)
 select c.country_name, sum(e.salary) from employees e
 join departments d 
 on e.department_id=d.department_id
@@ -38,7 +34,6 @@ where e.salary between 2000 and 6000
 group by c.country_name
 fetch first 2 rows with ties;
 
--- 5. Hər bir işçinin maaşını hesablamaq lazımdır. Bunun üçün, işçinin maaşı ilə işlədiyi departamentin ortalama maaşı müqayisə olunur. Nəticəyə görə, işçinin maaşını dəyişdiririk:
 
 	*Əgər işçinin maaşı öz departamentinin ortalama maaşının 35%-dən azdırsa, maaşı ikiqat artırılacaq.
 	*Əgər işçinin maaşı öz departamentinin ortalama maaşının 35%-dən yuxarı 90%-dən aşağıdırsa, maaşı 50% artırılacaq.
@@ -62,4 +57,5 @@ select e.employee_id,e.salary,e.department_id from employees e;
        end as yeni_maash;
        
        
+
 
