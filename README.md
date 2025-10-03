@@ -15,3 +15,7 @@ README.md   # This file
 1. Identify active vs inactive customers
 2. Total deposits and loans per customer
 3. Monthly transaction trends
+## Note
+
+- All datasets are simulated/dummy for practice purposes.
+- No real customer data is included
